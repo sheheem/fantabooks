@@ -214,7 +214,7 @@ exports.getEditUser = async (req, res, next) => {
   try {
     let user = req.params.id;
     const response = await User.findById({ _id: user });
-    console.log(response);
+    // console.log(response);
     res.render("admin/edit-user", { pageTitle: "Edit User", user: response });
   } catch (err) {
     console.log(err);
@@ -242,7 +242,7 @@ exports.blockUser = async (req, res, next) => {
       { _id: user },
       { isActive: false }
     );
-    console.log(response);
+    // console.log(response);
     res.redirect("/admin/user-list");
   } catch (err) {
     console.log(err);
@@ -257,7 +257,7 @@ exports.unBlockUser = async (req, res, next) => {
       { _id: user },
       { isActive: true }
     );
-    console.log(response);
+    // console.log(response);
     res.redirect("/admin/user-list");
   } catch (err) {
     console.log(err);
@@ -293,7 +293,7 @@ exports.getAddCategory = (req, res, next) => {
 exports.postAddCategory = (req, res, next) => {
   const name = req.body.name;
   const image = req.files;
-  console.log(image);
+  // console.log(image);
 
   if (!image) {
     return res.status(422).render("admin/addcategory", {
@@ -315,7 +315,7 @@ exports.postAddCategory = (req, res, next) => {
     });
   }
   const imageUrl = image[0].path;
-  console.log(imageUrl);
+  // console.log(imageUrl);
   const category = new Category({ image: imageUrl, name: name });
   category
     .save()
@@ -335,7 +335,7 @@ exports.getEditCategory = async (req, res, next) => {
   try {
     const cateId = req.params.id;
     const category = await Category.findById({ _id: cateId });
-    console.log(category);
+    // console.log(category);
     res.render("admin/edit-categorylist.ejs", {
       pageTitle: "Edit category",
       category,
@@ -468,7 +468,7 @@ exports.postAddProducts = (req, res) => {
   let imageUrl = [];
   for (let i = 0; i < image.length; i++) {
     imageUrl.push(image[i].path);
-    console.log(imageUrl[i]);
+    // console.log(imageUrl[i]);
   }
 
   const product = new Product({
@@ -624,7 +624,7 @@ exports.postReceived = async (req, res, next) => {
 
 exports.postProcessing = async (req, res, next) => {
   orderId = req.body.id;
-  console.log(orderId);
+  // console.log(orderId);
   await Order.updateOne(
     { _id: orderId },
     { $set: { orderstatus: "processed" } }
@@ -659,7 +659,7 @@ exports.getCouponList = (req, res, next) => {
 
 exports.addCoupon = async (req, res, next) => {
   const { coupon, type, discPrice, start, end, limit, status } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
 
   try {
     const exist = await Coupon.findOne({ coupon: req.body.coupon });
