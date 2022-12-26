@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" data-footer="true" data-override='{"attributes": {"placement": "vertical", "layout": "boxed" }, "storagePrefix": "ecommerce-platform"}'>
+  <head>
+    <%- include('../includes/adminheader.ejs') %> 
+  </head>
+
+  <body>
+    <div id="root">
+      <%- include('../includes/adminnav.ejs') %> 
+
+      <main>
+        <div class="container">
+          <!-- Title and Top Buttons Start -->
+          <div class="page-title-container">
+            <div class="row g-0">
+              <!-- Title Start -->
+              <div class="col-auto mb-3 mb-md-0 me-auto">
+                <div class="w-auto sw-md-30">
+                  <a href="#" class="muted-link pb-1 d-inline-block breadcrumb-back">
+                    <i data-cs-icon="chevron-left" data-cs-size="13"></i>
+                    <span class="text-small align-middle">Home</span>
+                  </a>
+                  <h1 class="mb-0 pb-0 display-4" id="title">Discount</h1>
+                </div>
+              </div>
+              <!-- Title End -->
+
+              <!-- Top Buttons Start -->
+              <div class="w-100 d-md-none"></div>
+              <div class="col-12 col-sm-6 col-md-auto d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto"
+                  data-bs-toggle="modal"
+                  data-bs-target="#discountAddModal"
+                >
+                  <i data-cs-icon="plus"></i>
+                  <span>Add Discount</span>
+                </button>
+                <div class="dropdown d-inline-block d-xl-none">
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary btn-icon btn-icon-only ms-1"
+                    data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i data-cs-icon="sort"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end custom-sort">
+                    <a class="dropdown-item sort" data-sort="code" href="#">Code</a>
+                    <a class="dropdown-item sort" data-sort="type" href="#">Type</a>
+                    <a class="dropdown-item sort" data-sort="date" href="#">Date</a>
+                    <a class="dropdown-item sort" data-sort="usage" href="#">Usage</a>
+                    <a class="dropdown-item sort" data-sort="status" href="#">Status</a>
+                  </div>
+                </div>
+                <div class="btn-group ms-1 check-all-container">
+                  <div class="btn btn-outline-primary btn-custom-control p-0 ps-3 pe-2" data-target="#checkboxTable">
+                    <span class="form-check float-end">
+                      <input type="checkbox" class="form-check-input" id="checkAll" />
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
+                    data-bs-offset="0,3"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  ></button>
+                  <div class="dropdown-menu dropdown-menu-end">
+                    <button class="dropdown-item" id="deleteChecked" type="button">Delete</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Top Buttons End -->
+            </div>
+          </div>
+          <!-- Title and Top Buttons End -->
+
+          <!-- Controls Start -->
+          <div class="row mb-2">
+            <!-- Search Start -->
+            <div class="col-sm-12 col-md-5 col-lg-3 col-xxl-2 mb-1">
+              <div class="d-inline-block float-md-start me-1 mb-1 search-input-container w-100 shadow bg-foreground">
+                <input class="form-control" placeholder="Search" />
+                <span class="search-magnifier-icon">
+                  <i data-cs-icon="search"></i>
+                </span>
+                <span class="search-delete-icon d-none">
+                  <i data-cs-icon="close"></i>
+                </span>
+              </div>
+            </div>
+            <!-- Search End -->
+
+            <div class="col-sm-12 col-md-7 col-lg-9 col-xxl-10 text-end mb-1">
+              <div class="d-inline-block">
+                <!-- Print Button Start -->
+                <button
+                  class="btn btn-icon btn-icon-only btn-foreground-alternate shadow"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-delay="0"
+                  title="Print"
+                  type="button"
+                >
+                  <i data-cs-icon="print"></i>
+                </button>
+                <!-- Print Button End -->
+
+                <!-- Export Dropdown Start -->
+                <div class="d-inline-block">
+                  <button class="btn p-0" data-bs-toggle="dropdown" type="button" data-bs-offset="0,3">
+                    <span
+                      class="btn btn-icon btn-icon-only btn-foreground-alternate shadow dropdown"
+                      data-bs-delay="0"
+                      data-bs-placement="top"
+                      data-bs-toggle="tooltip"
+                      title="Export"
+                    >
+                      <i data-cs-icon="download"></i>
+                    </span>
+                  </button>
+                  <div class="dropdown-menu shadow dropdown-menu-end">
+                    <button class="dropdown-item export-copy" type="button">Copy</button>
+                    <button class="dropdown-item export-excel" type="button">Excel</button>
+                    <button class="dropdown-item export-cvs" type="button">Cvs</button>
+                  </div>
+                </div>
+                <!-- Export Dropdown End -->
+
+                <!-- Length Start -->
+                <div class="dropdown-as-select d-inline-block" data-childSelector="span">
+                  <button class="btn p-0 shadow" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-offset="0,3">
+                    <span
+                      class="btn btn-foreground-alternate dropdown-toggle"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                      data-bs-delay="0"
+                      title="Item Count"
+                    >
+                      10 Items
+                    </span>
+                  </button>
+                  <div class="dropdown-menu shadow dropdown-menu-end">
+                    <a class="dropdown-item" href="#">5 Items</a>
+                    <a class="dropdown-item active" href="#">10 Items</a>
+                    <a class="dropdown-item" href="#">20 Items</a>
+                  </div>
+                </div>
+                <!-- Length End -->
+              </div>
+            </div>
+          </div>
+          <!-- Controls End -->
+
+          <!-- Discount List Start -->
+          <div class="row">
+            <div class="col-12 mb-5">
+              <div class="card mb-2 bg-transparent no-shadow d-none d-lg-block">
+                <div class="card-body pt-0 pb-0 sh-3">
+                  <div class="row g-0 h-100 align-content-center">
+                    <div class="col-12 col-lg-2 d-flex align-items-center mb-2 mb-lg-0 text-muted text-small">CODE</div>
+                    <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">TYPE</div>
+                    <div class="col-6 col-lg-1 d-flex align-items-center text-alternate text-medium text-muted text-small">VALUE</div>
+                    <div class="col-6 col-lg-3 d-flex align-items-center text-alternate text-medium text-muted text-small">DATE</div>
+                    <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">USAGE</div>
+                    <div class="col-6 col-lg-1 d-flex align-items-center text-alternate text-medium text-muted text-small">STATUS</div>
+                  </div>
+                </div>
+              </div>
+              
+              <% coupon.forEach(c => { %>
+              <div id="checkboxTable">
+                
+                <div class="card mb-2">
+                  <div class="card-body py-4 py-lg-0 sh-lg-8">
+                    <div class="row g-0 h-100 align-content-center">
+                      <div class="col-11 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
+                        <div class="text-muted text-small d-lg-none">Code</div>
+                        <a href="<%= c._id %> " onclick="edit(this)" data-id="<%= c._id %>" data-name="<%= c.coupon %>" data-type="<%= c.type %>" data-value="<%= c.discPrice %>" data-start="<%= c.start %>" data-end="<%= c.end %>" data-limit="<%= c.limit %>" data-status="<%= c.status %>" class="text-truncate h-100 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#discountDetailModal">
+                           <%= c.coupon %> 
+                        </a>
+                      </div>
+                      <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-3 order-lg-2">
+                        <div class="text-muted text-small d-lg-none">Type</div>
+                        <div class="text-alternate">  <%= c.type %>  </div>
+                      </div>
+                      <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-3 order-lg-2">
+                        <div class="text-muted text-small d-lg-none">Value</div>
+                        <div class="text-alternate">  <%= c.discPrice %>  </div>
+                      </div>
+                      <div class="col-6 col-lg-3 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
+                        <div class="text-muted text-small d-lg-none">Date</div>
+                        <div class="text-alternate"> <%= c.start %> - <%= c.end %>  </div>
+                      </div>
+                      <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
+                        <div class="text-muted text-small d-lg-none">Usage</div>
+                        <div class="text-alternate"> <%= c.limit %>   </div>
+                      </div>
+                      <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
+                        <div class="text-muted text-small d-lg-none">Status</div>
+                        <div>
+                          <span class="badge rounded-pill bg-outline-primary"><%= c.status %> </span>
+                        </div>
+                      </div>
+                      <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
+                        <label class="form-check float-end pe-none mt-1">
+                          <input type="checkbox" class="form-check-input" />
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               
+              </div>
+              <% }) %>
+              </div>
+          </div>
+          <!-- Discount List End -->
+
+          <!-- Discount Detail Modal Start -->
+          <div class="modal modal-right fade" id="discountDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Discount Detail</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="/admin/edit-coupon" method="post">
+                    <div class="mb-3">
+                      <label class="form-label">Code</label>
+                      <input type="text" class="form-control" id="coupon-name" />
+                    </div>
+                    <div class="mb-3 w-100">
+                      <label class="form-label" id="coupon-type">Type</label>
+                      <select class="select-single-no-search">
+                        <option label="&nbsp;"></option>
+                        <option value="Fixed Amount">Fixed Amount</option>
+                        <option value="Percentage" selected>Percentage</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Value</label>
+                      <input type="text" class="form-control date-picker-close" id="coupon-value" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Start</label>
+                      <input type="date" class="form-control date-picker-close" id="coupon-start" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">End</label>
+                      <input type="date" class="form-control date-picker-close" id="coupon-end"  />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Limit</label>
+                      <input type="text" class="form-control" id="coupon-limit" />
+                    </div>
+                    <div class="mb-3 w-100">
+                      <label class="form-label" id="coupon-status">Status</label>
+                      <select class="select-single-no-search">
+                        <option label="&nbsp;"></option>
+                        <option value="Active" selected>Active</option>
+                        <option value="Inactive">Inactive</option>
+                        <option value="Expired">Expired</option>
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer border-0">
+                  <a
+                    href="#"
+                    class="btn btn-icon btn-icon-only btn-outline-primary"
+                    data-delay='{"show":"500", "hide":"0"}'
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Delete"
+                    data-bs-dismiss="modal"
+                  >
+                    <i data-cs-icon="bin"></i>
+                  </a>
+                  <a href="#" class="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal">
+                    <span>Save</span>
+                    <i data-cs-icon="save"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+       
+          <!-- Discount Detail Modal End -->
+
+          <!-- Discount Add Modal Start -->
+          <div class="modal modal-right fade" id="discountAddModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add New Discount</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="/admin/add-coupon" method="post">
+                    <div class="mb-3">
+                      <label class="form-label">Code</label>
+                      <input type="text" name="coupon" class="form-control" />
+                    </div>
+                    <div class="mb-3 w-100">
+                      <label class="form-label">Type</label>
+                      <select name="type" class="select-single-no-search">
+                        <option label="&nbsp;"></option>
+                        <option value="Fixed Amount">Fixed Amount</option>
+                        <option value="Free Shipping">Free Shipping</option>
+                        <option value="Percentage">Percentage</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Value</label>
+                      <input type="text" name="discPrice" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Start</label>
+                      <input type="date" name="start" class="form-control date-picker-close" />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">End</label>
+                      <input type="date" name="end" class="form-control date-picker-close" />
+                    </div>
+                    <div class="mb-3 w-100">
+                      <label class="form-label">Status</label>
+                      <select name="status" class="select-single-no-search">
+                        <option label="&nbsp;"></option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                        <option value="Expired">Expired</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Limit</label>
+                      <input type="text" name="limit" class="form-control" />
+                    </div>
+                    <div class="modal-footer border-0">
+                      
+                      <button type="submit" class="btn btn-icon btn-icon-end btn-primary"  >
+                        
+                          <span>Add</span>
+                          <i data-cs-icon="send"></i>
+                        
+                      </button>
+                    </div>
+                  </form>
+                </div>
+               
+              </div>
+            </div>
+          </div>
+          <!-- Discount Add Modal End -->
+        </div>
+      </main>
+
+      <!-- Layout Footer Start -->
+     
+      <!-- Layout Footer End -->
+    </div>
+
+    <!-- Theme Settings Modal Start -->
+    
+    
+    <!-- Theme Settings Modal End -->
+
+    <!-- Search Modal Start -->
+    <div class="modal fade modal-under-nav modal-search modal-close-out" id="searchPagesModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header border-0 p-0">
+            <button type="button" class="btn-close btn btn-icon btn-icon-only btn-foreground" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body ps-5 pe-5 pb-0 border-0">
+            <input id="searchPagesInput" class="form-control form-control-xl borderless ps-0 pe-0 mb-1 auto-complete" type="text" autocomplete="off" />
+          </div>
+          <div class="modal-footer border-top justify-content-start ps-5 pe-5 pb-3 pt-3 border-0">
+            <span class="text-alternate d-inline-block m-0 me-3">
+              <i data-cs-icon="arrow-bottom" data-cs-size="15" class="text-alternate align-middle me-1"></i>
+              <span class="align-middle text-medium">Navigate</span>
+            </span>
+            <span class="text-alternate d-inline-block m-0 me-3">
+              <i data-cs-icon="arrow-bottom-left" data-cs-size="15" class="text-alternate align-middle me-1"></i>
+              <span class="align-middle text-medium">Select</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Search Modal End -->
+  </body>
+</html>
+
+<script>
+  function edit(el) {
+    // Collecting val from onclick element
+    const id = $(el).data('id');
+    const name = $(el).data('name')
+    const type = $(el).data('type')
+    const value = $(el).data('value')
+    const start = $(el).data('start')
+    const end = $(el).data('end')
+    const limit = $(el).data('limit')
+    const status = $(el).data('status')
+
+
+
+
+
+    // Selecting element on modal
+    const modal_name_el = $('#coupon-name')
+    const modal_type_el = $('#coupon-type')
+    const modal_value_el = $('#coupon-value')
+    const modal_start_el = $('#coupon-start')
+    const modal_end_el = $('#coupon-end')
+    const modal_limit_el = $('#coupon-limit')
+    const modal_status_el = $('#coupon-status')
+
+
+
+
+    // Inserting val to modal element
+    modal_name_el.val(name)
+    modal_type_el.val(type)
+    modal_value_el.val(value)
+    modal_start_el.val(start)
+    modal_end_el.val(end)
+    modal_limit_el.val(limit)
+    modal_status_el.val(status)
+    
+  }
+</script>

@@ -1,0 +1,159 @@
+<html>
+
+<header>
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/profile/profile.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</header>
+
+<body>
+    <div><%- include('../includes/navigation.ejs') %>
+            <div class="container bootstrap snippets bootdey " style="margin-top: 30px;">
+                <div class="row">
+                    <div class="profile-nav col-md-3">
+                        <div class="panel">
+                            <div class="user-heading round" style="background-color: rgb(40, 38, 38);">
+                                <a href="#">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                                </a>
+                                <h1>
+                                    <%= profile.name %>
+                                </h1>
+                                <p>
+                                    <%= profile.email %>
+                                </p>
+                            </div>
+
+                            <ul class="nav nav-pills nav-stacked">
+                                <li class="active"><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
+                                <li><a href="/recent-activity"> <i class="fa fa-calendar"></i> Wallet History</a></li>
+                                <li><a href="#"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                                <li><a href="/logout"> <i class="fa fa-power-off"></i> Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="profile-info col-md-9">
+
+                        <div class="panel">
+                            <div class="bio-graph-heading" style="background-color: rgb(40, 38, 38);">
+                                Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum.
+                                Aliquam ac magna metus.
+                            </div>
+                            <div class="panel-body bio-graph-info">
+                                <h1>Bio Graph</h1>
+                                <div class="row">
+                                    <div class="bio-row">
+                                        <% if(profile.address[0]) { %>
+
+                                            <p><span>First Name </span>: <%= profile.address[0].firstname %>
+                                            </p>
+                                    </div>
+                                    <div class="bio-row">
+                                        <p><span>Last Name </span>: <%= profile.address[0].lastname %>
+                                        </p>
+                                    </div>
+                                    <div class="bio-row">
+                                        <p><span>Country </span>: <%= profile.address[0].country %>
+                                        </p>
+                                    </div>
+                                    <% } else { %>
+
+                                        <p><span>First Name </span>: </p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Last Name </span>: </p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Country </span>: </p>
+                                </div>
+                                <% } %>
+
+                                    <div class="bio-row">
+                                        <p><span>Email </span>: <%= profile.email %>
+                                        </p>
+                                    </div>
+                                    <div class="bio-row">
+                                        <p><span>Mobile </span>: <%= profile.phone %>
+                                        </p>
+                                    </div>
+                                    <div class="bio-row">
+                                        <p><span>Phone </span>: 88 (02) 123456</p>
+                                    </div>
+
+                            </div>
+                        </div>
+                        <div class="panel-body bio-graph-info">
+                            <h1>Address</h1>
+                            <div class="row">
+                                <div class="bio-row">
+                                    <% if(profile.address[0]) {%>
+
+                                        <p><span>Street Address </span>: <%= profile.address[0].streetaddress1 %>, <%=
+                                                    profile.address[0].streetaddress2 %>
+                                        </p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Town/City </span>: <%= profile.address[0].city %>
+                                    </p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>State </span>: <%= profile.address[0].state %>
+                                    </p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Postcode </span>: <%= profile.address[0].zip %>
+                                    </p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Country </span>: <%= profile.address[0].country %>
+                                    </p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Mobile </span>: <%= profile.address[0].phone %>
+                                    </p>
+                                </div>
+                                <div class="bio-row">
+                                    <p><span>Email </span>: <%= profile.address[0].email %>
+                                    </p>
+                                </div>
+
+                                <% } else { %>
+
+                                    <p><span>Street Address </span>: </p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Town/City </span>: </p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>State </span>: </p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Postcode </span>: </p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Country </span>: </p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Mobile </span>: </p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Email </span>: </p>
+                            </div>
+                            
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,228 @@
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<html>
+  <header>
+    <%- include('../includes/header.ejs') %>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <body>
+      <%- include('../includes/navigation.ejs') %>
+
+      <main>
+        
+<div class="main">
+  <% if (products.length > 0)  {%>
+  <section class="module">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <h1 class="module-title font-alt">Cart</h1>
+        </div>
+      </div>
+      <hr class="divider-w pt-20">
+      <div class="row">
+        <div class="col-sm-12">
+          
+          <table class="table table-striped table-border checkout-table">
+            <tbody>
+              <tr>
+                <th class="hidden-xs">Item</th>
+                <th>Title</th>
+                <th class="hidden-xs">Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Remove</th>
+              </tr>
+              
+                <% products.forEach(p => {%>
+                  <% if (p.productId.stock <= 0) { %> 
+                    <tr>
+                      <td class="hidden-xs"><a href="#"><img id="myImage" src="/<%= p.productId.imageUrl[0] %>" alt="Accessories Pack"/></a></td>
+                      <td>
+                        <h5 class="product-title font-alt"><%= p.productId.title  %> </h5>
+                      </td>
+                      <td class="hidden-xs">
+                        <h5 class="product-title font-alt"><%=p.productId.price  %> </h5>
+                      </td>
+                      <td>
+                        <!-- onclick="incQ(-1, '')" -->
+                        <div class="col-12">
+                          <h6>OUT OF STOCK</h6>
+                       </div>
+                      </td>
+                      <td>
+                        <h5 class="product-title font-alt"><%=p.quantity*p.productId.price %> </h5>
+                      </td>
+                      <td class="pr-remove">
+                        <input type="hidden" value="<%= p.productId._id %>" name="productId">
+                        <a href="#" title="Remove"><i class="fa fa-times"></i> </a>
+                      </td>
+                    </tr>
+                    <% } else { %> 
+                  <tr>
+                    <td class="hidden-xs"><a href="#"><img  src="/<%= p.productId.imageUrl[0] %>" alt="Accessories Pack"/></a></td>
+                    <td>
+                      <h5 class="product-title font-alt"><%= p.productId.title  %> </h5>
+                    </td>
+                    <td class="hidden-xs">
+                      <h5 class="product-title font-alt"><%=p.productId.price  %> </h5>
+                    </td>
+                    <td>
+                      <!-- onclick="incQ(-1, '')" -->
+                      <div class="col-12">
+                        <div class="d-flex justify-content-between">
+                           <div class="input-group w-auto justify-content-end align-items-center">
+                              <input type="button" value="-" onclick="quantityminus('<%=p.productId._id%>')"  class="button-minus border rounded-circle  icon-shape icon-sm mx-1 " data-field="quantity">
+                              <input  type="number" step="1"  max="10" value="<%=p.quantity  %>" name="quantity" class="quantity-field border-0 text-center w-25">
+                              <input type="button" value="+" id="inc" onclick="quantityplus('<%=p.productId._id%>')" class="button-plus border rounded-circle icon-shape icon-sm " data-field="quantity">
+                           </div>
+                        </div>
+                     </div>
+                    </td>
+                    <td>
+                      <h5 class="product-title font-alt"><%=Math.round(p.quantity*p.productId.price*100)/100 %> </h5>
+                    </td>
+                    <td class="pr-remove">
+                      <input type="hidden" value="<%= p.productId._id %>" name="productId">
+                      <a href="#" title="Remove"><i class="fa fa-times"></i> </a>
+                    </td>
+                  </tr>
+                  <% } %> 
+
+                <% }) %>  
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <input class="form-control" type="text" id="" name="" placeholder="Coupon code"/>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <button class="btn btn-round btn-g" type="submit">Apply</button>
+          </div>
+        </div>
+        <div class="col-sm-3 col-sm-offset-3">
+          <div class="form-group">
+           <a href="#" ><button class="btn btn-block btn-round btn-d pull-right" type="submit">Update Cart</button></a>
+          </div>
+        </div>
+      </div>
+      
+      <hr class="divider-w">
+      <div class="row mt-70">
+        <div class="col-sm-5 col-sm-offset-7">
+          <div class="shop-Cart-totalbox">
+            <h4 class="font-alt">Cart Totals</h4>
+            <table class="table table-striped table-border checkout-table">
+              <tbody>
+                <tr>
+                  <th>Cart Total :</th>
+                  <td>$<%=Math.round(totalSum*100)/100%> </td>
+                </tr>
+                <tr>
+                  <th>Shipping Total :</th>
+                  <td>FREE</td>
+                </tr>
+                <tr class="shop-Cart-totalprice">
+                  <th>Total :</th>
+                  <td>$<%=Math.round(totalSum*100)/100%> </td>
+                </tr>
+              </tbody>
+            </table>
+            <form action="/billing" method="get">
+             
+            <button class="btn btn-lg btn-block btn-round btn-d" type="submit">Proceed to Checkout</button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <% } else {%>
+    <section class="module">
+      <div class="container">
+        <div class="row">
+          
+          <div class="col-sm-12  ">
+              <h1>Your Cart is Empty.......</h1>
+              <div class="centered">
+              <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_qh5z2fdq.json" background="transparent"  speed="1"  style="width: 500px; height: 500px;" loop autoplay></lottie-player>  
+            </div>
+            
+        <!-- <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <h1 class="module-title font-alt">Cart</h1>
+          </div>
+        </div> -->
+        <!-- <hr class="divider-w pt-20 centered"> -->
+       
+    <% } %> 
+  </div>
+      </main>
+    </body>
+  
+
+  </header>
+  <script>
+    
+
+
+    function incrementValue(e) {
+        e.preventDefault();
+        var fieldName = $(e.target).data('field');
+        var parent = $(e.target).closest('div');
+        var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+        if (!isNaN(currentVal)) {
+            parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
+        } else {
+            parent.find('input[name=' + fieldName + ']').val(0);
+        }
+    }
+
+    function decrementValue(e) {
+        e.preventDefault();
+        var fieldName = $(e.target).data('field');
+        var parent = $(e.target).closest('div');
+        var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+        if (!isNaN(currentVal) && currentVal > 1) {
+            parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
+        } else {
+            parent.find('input[name=' + fieldName + ']').val(1);
+        }
+    }
+
+    $('.input-group').on('click', '.button-plus', function(e) {
+        incrementValue(e);
+    });
+
+    $('.input-group').on('click', '.button-minus', function(e) {
+        decrementValue(e);
+    });
+
+const quantityplus =(id)=>{
+  axios.get("/quantityInc", {params:{id}}).then((e)=>{
+    console.log("vannu");
+  })
+}
+
+const quantityminus =(id)=>{
+  axios.get("/quantityDec", {params:{id}}).then((e)=>{
+    console.log("vannu");
+  })
+}
+
+// $("#myImage").filter.opacity = "0.3"
+  </script>
+
+
+</html>

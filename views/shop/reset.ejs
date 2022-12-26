@@ -1,0 +1,51 @@
+<%- include('../includes/header.ejs') %>
+
+<nav class="navbar navbar-custom navbar-fixed-top navbar-dark" role="navigation">
+  <div class="container">
+      <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="index.html">FantaBooks</a>
+      </div>
+      <div class="collapse navbar-collapse" id="custom-collapse">
+      <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown"><a href="/" >Home</a>
+          
+          </li>
+      </ul>
+      </div>
+  </div>
+</nav>
+
+<div class="main">
+    <section class="module bg-dark-30" data-background="/images/urbsn2.jpg">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <h1 class="module-title font-alt mb-0">Reset</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="module">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5 col-sm-offset-1 mb-sm-40">
+            <h4 class="font-alt">Reset Password</h4>
+            <hr class="divider-w mb-10">
+            <form class="form" action="/reset" method="post" >
+              <% if (errorMessage) { %>
+                <div class="form-group text-danger " >
+                  <div class="alert alert-danger" role="alert"><strong>Alert!</strong> <%= errorMessage  %></div>
+                </div>
+              <% } %>
+              <div class="form-group">
+                <input class="form-control" id="email" type="text" name="email" placeholder="Email"/>
+              </div>
+              <div class="form-group">
+                
+                <button class="btn btn-round btn-b">Reset</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>

@@ -1,0 +1,82 @@
+<html>
+    <%- include('../includes/header.ejs') %>
+   
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main>
+           
+      <div class="main">
+        <section class="module bg-dark-60 shop-page-header" data-background="/images/bookcollection.jpg">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                <h2 class="module-title font-alt">Wishlist</h2>
+                <div class="module-subtitle font-serif">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="module-small">
+          <div class="container">
+            <form class="row">
+              <div class="col-sm-4 mb-sm-20">
+                <select class="form-control">
+                  <option selected="selected">Default Sorting</option>
+                  <option>Popular</option>
+                  <option>Latest</option>
+                  <option>Average Price</option>
+                  <option>High Price</option>
+                  <option>Low Price</option>
+                </select>
+              </div>
+              <div class="col-sm-2 mb-sm-20">
+                <select class="form-control">
+                  <option selected="selected">Woman</option>
+                  <option>Man</option>
+                </select>
+              </div>
+              <div class="col-sm-3 mb-sm-20">
+                <select class="form-control">
+                  <option selected="selected">All</option>
+                  <option>Coats</option>
+                  <option>Jackets</option>
+                  <option>Dresses</option>
+                  <option>Jumpsuits</option>
+                  <option>Tops</option>
+                  <option>Trousers</option>
+                </select>
+              </div>
+              <div class="col-sm-3">
+                <button class="btn btn-block btn-round btn-g" type="submit">Apply</button>
+              </div>
+            </form>
+          </div>
+        </section>
+        <hr class="divider-w">
+        <section class="module-small">
+          <div class="container">
+           
+            <div class="row multi-columns-row">
+                <% for (let product of prods) { %>
+              <div class="col-sm-6 col-md-3 col-lg-3">
+                <div class="shop-item">
+                  <div class="shop-item-image"><img  src="/<%= product.productId.imageUrl[0] %>" style="width: 900px; height: 400px;" alt="Accessories Pack"/>
+                    <div class="shop-item-detail"><%- include('../includes/add-to-cart.ejs',{product: product})  %>                   
+                  </div>
+                  <h4 class="shop-item-title font-alt"><a href="#"><%= product.productId.title %></a></h4>$<%= product.productId.price %>
+                </div>
+              </div>
+              
+            </div>
+            <% } %>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="pagination font-alt"><a href="#"><i class="fa fa-angle-left"></i></a><a class="active" href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#"><i class="fa fa-angle-right"></i></a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+     <%- include('../includes/footer.ejs') %>
+    </main>
+  </body>
+</html>

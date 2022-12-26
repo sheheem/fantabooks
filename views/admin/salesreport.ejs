@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" data-footer="true" data-override='{"attributes": {"placement": "vertical", "layout": "boxed" }, "storagePrefix": "ecommerce-platform"}'>
+  <head>
+    <%- include('../includes/adminheader.ejs') %>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+
+    <script src="https://code.jscharting.com/2.9.0/jscharting.js"></script>
+    <script src="js/index.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+ 
+  <body>
+    <div id="root">
+      <%- include('../includes/adminnav.ejs') %>
+      <main>
+        <div class="container">
+          <div class="mb-3 d-flex">
+            <div>
+              <label class="form-label">From</label>
+            <input id="fromd" type="date" name="from" class="form-control" placeholder="From">
+            </div>
+            
+            <div>
+              <label class="form-label">Till</label>
+          <input id="tilld"type="date" name="till" class="form-control" placeholder="From">
+            </div>
+
+            <div class="mt-5 ms-3">
+              <button type="button" onclick="filter()">Apply</button>
+            </div>
+          
+
+          </div>
+          <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>DATE</th>
+                    <th>PROFIT</th>
+                    <th>ORDER COUNT</th>
+                </tr>
+            </thead>
+            <tbody id="dateWis">
+                <% saleReport.forEach((s,i) => { %>
+                <tr>
+                    <td> <%= i+1 %> </td>
+                    <td><%= s._id %> </td>
+                    <td><%= Math.round(s.totalPrice*100)/100 %> </td>
+                    <td><%= s.count %> </td>
+                </tr>
+                <% }) %>
+        </div>
+      </main>
+      <!-- Layout Footer Start -->
+      
+    </div>
+
+    <!-- Theme Settings Modal Start -->
+    <div
+      class="modal fade modal-right scroll-out-negative"
+      id="settings"
+      data-bs-backdrop="true"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="settings"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable full" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Theme Settings</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="scroll-track-visible">
+              <div class="mb-5" id="color">
+                <label class="mb-3 d-inline-block form-label">Color</label>
+                <div class="row d-flex g-3 justify-content-between flex-wrap mb-3">
+                  <a href="#" class="flex-grow-1 w-50 option col" data-value="light-blue" data-parent="color">
+                    <div class="card rounded-md p-3 mb-1 no-shadow color">
+                      <div class="blue-light"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">LIGHT BLUE</span>
+                    </div>
+                  </a>
+                  <a href="#" class="flex-grow-1 w-50 option col" data-value="dark-blue" data-parent="color">
+                    <div class="card rounded-md p-3 mb-1 no-shadow color">
+                      <div class="blue-dark"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">DARK BLUE</span>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="row d-flex g-3 justify-content-between flex-wrap mb-3">
+                  <a href="#" class="flex-grow-1 w-50 option col" data-value="light-red" data-parent="color">
+                    <div class="card rounded-md p-3 mb-1 no-shadow color">
+                      <div class="red-light"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">LIGHT RED</span>
+                    </div>
+                  </a>
+                  <a href="#" class="flex-grow-1 w-50 option col" data-value="dark-red" data-parent="color">
+                    <div class="card rounded-md p-3 mb-1 no-shadow color">
+                      <div class="red-dark"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">DARK RED</span>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="row d-flex g-3 justify-content-between flex-wrap mb-3">
+                  <a href="#" class="flex-grow-1 w-50 option col" data-value="light-green" data-parent="color">
+                    <div class="card rounded-md p-3 mb-1 no-shadow color">
+                      <div class="green-light"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">LIGHT GREEN</span>
+                    </div>
+                  </a>
+                  <a href="#" class="flex-grow-1 w-50 option col" data-value="dark-green" data-parent="color">
+                    <div class="card rounded-md p-3 mb-1 no-shadow color">
+                      <div class="green-dark"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">DARK GREEN</span>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="row d-flex g-3 justify-content-between flex-wrap mb-3">
+                  <a href="#" class="flex-grow-1 w-50 option col" data-value="light-purple" data-parent="color">
+                    <div class="card rounded-md p-3 mb-1 no-shadow color">
+                      <div class="purple-light"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">LIGHT PURPLE</span>
+                    </div>
+                  </a>
+                  <a href="#" class="flex-grow-1 w-50 option col" data-value="dark-purple" data-parent="color">
+                    <div class="card rounded-md p-3 mb-1 no-shadow color">
+                      <div class="purple-dark"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">DARK PURPLE</span>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="row d-flex g-3 justify-content-between flex-wrap mb-3">
+                  <a href="#" class="flex-grow-1 w-50 option col" data-value="light-pink" data-parent="color">
+                    <div class="card rounded-md p-3 mb-1 no-shadow color">
+                      <div class="pink-light"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">LIGHT PINK</span>
+                    </div>
+                  </a>
+                  <a href="#" class="flex-grow-1 w-50 option col" data-value="dark-pink" data-parent="color">
+                    <div class="card rounded-md p-3 mb-1 no-shadow color">
+                      <div class="pink-dark"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">DARK PINK</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <div class="mb-5" id="navcolor">
+                <label class="mb-3 d-inline-block form-label">Override Nav Palette</label>
+                <div class="row d-flex g-3 justify-content-between flex-wrap">
+                  <a href="#" class="flex-grow-1 w-33 option col" data-value="default" data-parent="navcolor">
+                    <div class="card rounded-md p-3 mb-1 no-shadow">
+                      <div class="figure figure-primary top"></div>
+                      <div class="figure figure-secondary bottom"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">DEFAULT</span>
+                    </div>
+                  </a>
+                  <a href="#" class="flex-grow-1 w-33 option col" data-value="light" data-parent="navcolor">
+                    <div class="card rounded-md p-3 mb-1 no-shadow">
+                      <div class="figure figure-secondary figure-light top"></div>
+                      <div class="figure figure-secondary bottom"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">LIGHT</span>
+                    </div>
+                  </a>
+                  <a href="#" class="flex-grow-1 w-33 option col" data-value="dark" data-parent="navcolor">
+                    <div class="card rounded-md p-3 mb-1 no-shadow">
+                      <div class="figure figure-muted figure-dark top"></div>
+                      <div class="figure figure-secondary bottom"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">DARK</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <div class="mb-5" id="behaviour">
+                <label class="mb-3 d-inline-block form-label">Menu Behaviour</label>
+                <div class="row d-flex g-3 justify-content-between flex-wrap">
+                  <a href="#" class="flex-grow-1 w-50 option col" data-value="pinned" data-parent="behaviour">
+                    <div class="card rounded-md p-3 mb-1 no-shadow">
+                      <div class="figure figure-primary left large"></div>
+                      <div class="figure figure-secondary right small"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">PINNED</span>
+                    </div>
+                  </a>
+                  <a href="#" class="flex-grow-1 w-50 option col" data-value="unpinned" data-parent="behaviour">
+                    <div class="card rounded-md p-3 mb-1 no-shadow">
+                      <div class="figure figure-primary left"></div>
+                      <div class="figure figure-secondary right"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">UNPINNED</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <div class="mb-5" id="layout">
+                <label class="mb-3 d-inline-block form-label">Layout</label>
+                <div class="row d-flex g-3 justify-content-between flex-wrap">
+                  <a href="#" class="flex-grow-1 w-50 option col" data-value="fluid" data-parent="layout">
+                    <div class="card rounded-md p-3 mb-1 no-shadow">
+                      <div class="figure figure-primary top"></div>
+                      <div class="figure figure-secondary bottom"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">FLUID</span>
+                    </div>
+                  </a>
+                  <a href="#" class="flex-grow-1 w-50 option col" data-value="boxed" data-parent="layout">
+                    <div class="card rounded-md p-3 mb-1 no-shadow">
+                      <div class="figure figure-primary top"></div>
+                      <div class="figure figure-secondary bottom small"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">BOXED</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <div class="mb-5" id="radius">
+                <label class="mb-3 d-inline-block form-label">Radius</label>
+                <div class="row d-flex g-3 justify-content-between flex-wrap">
+                  <a href="#" class="flex-grow-1 w-33 option col" data-value="rounded" data-parent="radius">
+                    <div class="card rounded-md radius-rounded p-3 mb-1 no-shadow">
+                      <div class="figure figure-primary top"></div>
+                      <div class="figure figure-secondary bottom"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">ROUNDED</span>
+                    </div>
+                  </a>
+                  <a href="#" class="flex-grow-1 w-33 option col" data-value="standard" data-parent="radius">
+                    <div class="card rounded-md radius-regular p-3 mb-1 no-shadow">
+                      <div class="figure figure-primary top"></div>
+                      <div class="figure figure-secondary bottom"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">STANDARD</span>
+                    </div>
+                  </a>
+                  <a href="#" class="flex-grow-1 w-33 option col" data-value="flat" data-parent="radius">
+                    <div class="card rounded-md radius-flat p-3 mb-1 no-shadow">
+                      <div class="figure figure-primary top"></div>
+                      <div class="figure figure-secondary bottom"></div>
+                    </div>
+                    <div class="text-muted text-part">
+                      <span class="text-extra-small align-middle">FLAT</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn settings-button btn-gradient-primary" data-bs-toggle="modal" data-bs-target="#settings" id="settingsButton">
+      <i data-cs-icon="paint-roller" class="position-relative"></i>
+    </button>
+    <!-- Theme Settings Modal End -->
+
+    <!-- Search Modal Start -->
+    <div class="modal fade modal-under-nav modal-search modal-close-out" id="searchPagesModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header border-0 p-0">
+            <button type="button" class="btn-close btn btn-icon btn-icon-only btn-foreground" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body ps-5 pe-5 pb-0 border-0">
+            <input id="searchPagesInput" class="form-control form-control-xl borderless ps-0 pe-0 mb-1 auto-complete" type="text" autocomplete="off" />
+          </div>
+          <div class="modal-footer border-top justify-content-start ps-5 pe-5 pb-3 pt-3 border-0">
+            <span class="text-alternate d-inline-block m-0 me-3">
+              <i data-cs-icon="arrow-bottom" data-cs-size="15" class="text-alternate align-middle me-1"></i>
+              <span class="align-middle text-medium">Navigate</span>
+            </span>
+            <span class="text-alternate d-inline-block m-0 me-3">
+              <i data-cs-icon="arrow-bottom-left" data-cs-size="15" class="text-alternate align-middle me-1"></i>
+              <span class="align-middle text-medium">Select</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Search Modal End -->
+
+    
+  </body>
+</html>
+
+<script>
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+
+
+const filter = () => {
+  const fromd = document.getElementById("fromd").value
+const tilld = document.getElementById("tilld").value
+axios.post("/admin/date",{fromd:fromd,tilld:tilld}).then((e) => {
+  const update = e.data.dateWise;
+  let html = ''
+   update.forEach((element,i) => {
+    html += `
+    <tr>
+                    <td> ${i+1}  </td>
+                    <td> ${element._id}  </td>
+                    <td> ${Math.round(element.totalPrice*100)/100 } </td>
+                    <td> ${element.count} </td>
+                </tr>`
+  });
+  document.getElementById("dateWis").innerHTML = html
+})
+}
+
+
+</script>

@@ -1,0 +1,71 @@
+<html>
+    <%- include('../includes/header.ejs') %>
+
+<body>
+    <%- include('../includes/admin-nav.ejs') %>
+    <main>
+      
+        <div class="main">
+            <% if (errorMessage) { %>
+                <div class="form-group text-danger " >
+                <div class="alert alert-danger" role="alert"><strong>Alert!</strong> <%= errorMessage  %></div>
+                </div>
+              <% } %>
+            <section class="module bg-dark-30 about-page-header" data-background="assets/images/about_bg.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <h1 class="module-title font-alt mb-0">ADD PRODUCT</h1>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="module">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <h4 class="font-alt mb-0">Add Here</h4>
+                            <hr class="divider-w mt-10 mb-20">
+                            <% if (errorMessage) { %>
+                                <div><%= errorMessage %></div>
+                            <% } %>
+                            <form class="form" role="form" action="/admin/edit-product" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input class="form-control input-lg" name="title" id="title" type="text" placeholder="Product Name" value="<%= product.title %>"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Price</label>
+                                    <input class="form-control input-lg" name="price" id="price" type="text" placeholder="Price" value="<%= product.price %>" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="image">Image</label>
+                                    <input class="form-control input-lg" name="image" id="image" type="file"  value="<%= product.imageUrl%>" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="image">Category</label>
+                                    <input class="form-control input-lg" name="category" id="category" type="text"  value="<%= product.category%>" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="author">Author</label>
+                                    <input class="form-control input-lg" name="author" id="author" type="text"  value="<%= product.author%>" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="stock">Stock</label>
+                                    <input class="form-control input-lg" name="stock" id="stock" type="text"  value="<%= product.stock%>" />
+                                </div>
+                                <label for="description">Description</label>
+                                <textarea class="form-control" name="description" id="description" rows="7" placeholder="Description" value="<%= product.updatedDesc %>"></textarea>
+                                <input type="hidden" value="<%= product._id %>" name="productId">
+                               
+                                <button class="btn btn-b btn-round mt-10" type="submit">Add</button>&nbsp;
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <%- include('../includes/footer.ejs') %>
+    </main>
+</body>
+
+</html>

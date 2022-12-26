@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<!-- molla/checkout.html  22 Nov 2019 09:55:06 GMT -->
+
+<head>
+	<%- include('../includes/header.ejs') %>
+		<!-- Favicon -->
+		<link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href=/images/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href=/images/icons/favicon-16x16.png">
+		<link rel="manifest" href="/images/icons/site.html">
+		<link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#666666">
+		<link rel="shortcut icon" href=/images/icons/favicon.ico">
+		<meta name="apple-mobile-web-app-title" content="Molla">
+		<meta name="application-name" content="Molla">
+		<meta name="msapplication-TileColor" content="#cc9966">
+		<meta name="msapplication-config" content=/images/icons/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+		<!-- Plugins CSS File -->
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		<!-- Main CSS File -->
+		<link rel="stylesheet" href="/css/style1.css">
+</head>
+
+<body>
+	<%- include('../includes/navigation.ejs') %>
+		<div class="page-wrapper">
+
+
+			<main class="main">
+				<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+					<div class="container">
+						<h1 class="page-title">Checkout<span>Shop</span></h1>
+					</div><!-- End .container -->
+				</div><!-- End .page-header -->
+
+
+				<div class="page-content">
+					<div class="checkout">
+						<div class="container">
+							<div class="checkout-discount">
+								<form id="coupon_apply">
+									<input type="text" name="coupon" class="form-control" required
+										id="checkout-discount-input">
+									<label for="checkout-discount-input" class="text-truncate">Have a coupon?
+										<span>Click here to enter your code</span></label>
+									<button  class="btn btn-outline-primary-2 btn-order btn-block">
+										<span class="btn-hover-text">Apply</span>
+									</button>
+								</form>
+							</div><!-- End .checkout-discount -->
+							<form action="/orderonline" method="post">
+							<% if (users.address.length==0) { %>
+							
+									
+										</div><!-- End .col-lg-9 -->
+										<% } else { %>
+											<div class="col-lg-9">
+												<% for (let i=0; i < 1; i++)  { %>
+												<div for="html">
+													<h3>Delivery Address</h3>
+													<div>
+														<%= users.address[users.address.length-1].firstname + ' ' +users.address[users.address.length-1].lastname %><br>
+															<%= users.address[users.address.length-1].country %><br>
+																<%= users.address[users.address.length-1].streetaddress1 %><br>
+																	<%= users.address[users.address.length-1].streetaddress2 %><br>
+																		<%= users.address[users.address.length-1].city %><br>
+																			<%= users.address[users.address.length-1].state %><br>
+																				<%=users.address[users.address.length-1].zip %><br>
+																					<%= users.address[users.address.length-1].phone %><br>
+																						<%= users.address[users.address.length-1].email %><br>
+													</div>
+												</div>	<% }%><br>
+						
+											</div><!-- End .col-lg-9 -->
+											<% } %>
+										<aside class="col-lg-3">
+											<div class="summary">
+												<h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
+
+												<table class="table  table-summary">
+													<thead class="tableSum">
+														<tr>
+															<th>Product</th>
+															<th>Total</th>
+														</tr>
+													</thead>
+
+													<tbody>
+														<% products.forEach(p=> { %>
+															<tr>
+																<td><a href="#">
+																		<%= p.productId.title %>
+																	</a></td>
+																<td>
+																	<%= Math.round(p.productId.price*100)/100 %>
+																</td>
+															</tr>
+															<% }) %>
+																<tr class="summary-subtotal">
+																	<td>Subtotal:</td>
+																	<td>
+																		<%= Math.round(totalSum*100)/100 %>
+																	</td>
+																</tr><!-- End .summary-subtotal -->
+																<tr>
+																	<td>Shipping:</td>
+																	<td>Free shipping</td>
+																</tr>
+																<tr class="summary-total">
+																	<td>Total:</td>
+																	<td id="totalSum">
+																		<%= Math.round(totalSum*100)/100 %>
+																	</td>
+																</tr><!-- End .summary-total -->
+
+													</tbody>
+												</table><!-- End .table table-summary -->
+										<div class="accordion-summary" id="accordion-payment">
+										<div class="card">
+											<div class="card-header" id="heading-3">
+												<h2 class="card-title">
+													<input type="radio" 
+													name="Payment" value="COD" checked>
+														Cash on delivery
+												</h2>
+											</div>
+										</div>
+										
+										<div class="card">
+											<div class="card-header" id="heading-5">
+												<h2 class="card-title">
+														Credit Card (Stripe)
+														<img src="/images/payments-summary.png" alt="payments cards">
+														<br>
+														<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" id="totalSum"
+														data-key="pk_test_51M85uhSBihvE10PwZen9JSbnCEosmGnDduLnTNk6M6DeP2JdIfPMiEYw28a4S2Npaz1wdVJ6ezVAGd0WOJBgQb0l00mQB6JFVn"
+														data-amount="<%= Math.round(totalSum*100)/100 %>" data-name="Your Order"
+														data-description="All the items you ordewred"
+														data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+														data-locale="auto" data-currency="usd">
+														</script> 
+													
+												</h2>
+											</div><!-- End .card-header -->
+										</div><!-- End .card -->
+									
+									</div><!-- End .accordion -->
+								</div><!-- End .summary -->
+								<button type="button" class="btn btn-outline-primary-2 btn-order btn-block" onclick="PaymentMethod()">
+									<span class="btn-hover-text">Place Order</span>
+								</button>
+							</aside><!-- End .col-lg-3 -->
+						</form>
+						
+						</div><!-- End .row -->
+						
+						
+						</div><!-- End .container -->
+						</div><!-- End .checkout -->
+						</div><!-- End .page-content -->
+						</main><!-- End .main -->
+
+						<footer class="footer">
+
+						</footer><!-- End .footer -->
+						</div><!-- End .page-wrapper -->
+						<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+						<!-- Mobile Menu -->
+						<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+						<div class="mobile-menu-container">
+						<div class="mobile-menu-wrapper">
+							<span class="mobile-menu-close"><i class="icon-close"></i></span>
+
+
+
+							<nav class="mobile-nav">
+
+							</nav><!-- End .mobile-nav -->
+
+
+						</div><!-- End .mobile-menu-wrapper -->
+						</div><!-- End .mobile-menu-
+
+				<!-- Sign in / Register Modal -->
+
+
+				<!-- Plugins JS File -->
+				<script src="/jss/jquery.min.js"></script>
+				<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+				<script src="/jss/bootstrap.bundle.min.js"></script>
+				<script src="/jss/jquery.hoverIntent.min.js"></script>
+				<script src="/jss/jquery.waypoints.min.js"></script>
+				<script src="/jss/superfish.min.js"></script>
+				<script src="/jss/owl.carousel.min.js"></script>
+				<script src="jquery-3.6.1.min.js"></script>
+				<!-- <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script> -->
+				<!-- Main JS File -->
+				<script src="/jss/main.js"></script>
+				<script src="/main.js"></script>
+				
+				
+				<script>
+				$('#coupon_apply').submit((event)=>{
+					event.preventDefault();
+					const coupon = $("input[name='coupon']").val();
+					console.log(coupon)
+					$.ajax({
+						url: '/coupon',
+						method: "post",
+						data: {
+							coupon: coupon,
+						},
+					}).then((result) => {
+						if (result.newTotal){
+							$("#totalSum").text(result.newTotal);
+						$("#coupon_apply" ).empty().append("<h4>Coupon Applied</h4>");
+						} 
+						customAlert(result.message,'error');
+					})
+				})
+				</script>
+
+
+
+				<script>
+					const textbox = document.getElementById('textbox')
+					function doAlert() {
+						var input = document.querySelector('#Check');
+						input.addEventListener('change', function () {
+							if (input.checked) {
+								textbox.style.display = "none"
+								axios.post('./address',{}).then((e) => {
+									
+								})
+							} else {
+								textbox.style.display = "block"
+								axios.post('/newAddress',{}).then((e) => {
+									console.log(vannu);
+								})
+							}
+						});
+					}
+					doAlert();
+
+
+
+function PaymentMethod () {
+	// const payment=
+	// console.log(payment)
+	// 	if(payment.checked)
+			// if(payment.value=="COD"){
+				axios.post('/ordercod',{}).then((e) => {
+					if(e.data.Response){
+						location.href = "/order"
+					}
+				})
+
+	// }
+}
+	
+
+const online = () =>{
+	alert("Online")
+		axios.post('/orderonline',{}).then((e) => {
+			if(e.data.Response){
+				alert('online')
+						location.href = "/order"
+					}
+				})		
+	
+}
+
+				</script>
+</body>
+
+
+<!-- molla/checkout.html  22 Nov 2019 09:55:06 GMT -->
+
+</html>

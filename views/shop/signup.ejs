@@ -1,0 +1,63 @@
+<%- include('../includes/header.ejs') %>
+
+<nav class="navbar navbar-custom navbar-fixed-top navbar-dark" role="navigation">
+  <div class="container">
+      <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="index.html">FantaBooks</a>
+      </div>
+      <div class="collapse navbar-collapse" id="custom-collapse">
+      <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown"><a href="/" >Home</a>
+          
+          </li>
+      </ul>
+      </div>
+  </div>
+</nav>
+
+<div class="main">
+    <section class="module bg-dark-30" data-background="/images/urbsn2.jpg">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <h1 class="module-title font-alt mb-0">Register</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="module">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5">
+            <h4 class="font-alt">Register</h4>
+            <hr class="divider-w mb-10">
+            <form class="form" action="/signup" method="post" novalidate>
+              <% if (errorMessage) { %>
+                <div class="form-group text-danger " >
+                <div class="alert alert-danger" role="alert"><strong>Alert!</strong> <%= errorMessage  %></div>
+                </div>
+              <% } %>
+              <div class="form-group">
+                <input class="form-control" id="E-mail" type="email" name="email" placeholder="Email" value="<%=oldInput.email  %> " />
+              </div>
+              <div class="form-group">
+                <input class="form-control" id="name" type="text" name="name" placeholder="Name" value="<%=oldInput.name %>" />
+              </div>
+              <div class="form-group">
+                <input class="form-control" id="phone" type="text" name="phone" placeholder="Phone No." value="<%=oldInput.phone%>" />
+              </div>
+              <div class="form-group">
+                <input class="form-control" id="password" type="password" name="password" placeholder="Password" />
+              </div>
+              <div class="form-group">
+                <input class="form-control" id="re-password" type="password" name="confirmpass" placeholder="Confirm Password"/>
+              </div>
+              <div class="form-group">
+               
+                <button class="btn btn-block btn-round btn-b">Register</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>

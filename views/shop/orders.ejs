@@ -1,0 +1,379 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+
+  
+
+<div class="col-md-10 col-lg-10">
+    <div class="tab-content ">
+        <section class="inner-section orderlist-part ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <div class="orderlist-filter"> 
+                            
+                            
+                
+                           <% if (orders.length <= 0 ) { %> 
+                            <h1>No Orders Yet....</h1>
+                            <% } else { %> 
+                            <h5>total order <span> </span><%=orders.length  %> </h5>
+                            <div class="filter-short"><label class="form-label">short by:</label><select
+                                    class="form-select">
+                                    <option value="all" selected>all order</option>
+                                    <option value="recieved">recieved order</option>
+                                    <option value="processed">processed order</option>
+                                    <option value="shipped">shipped order</option>
+                                    <option value="delivered">delivered order</option>
+                                </select></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-10">
+
+                        <!-- loop by order -->
+                      
+                       <% orders.forEach(function(o,i) { %>
+
+                        <% if (o.orderstatus === 'cancel') { %> 
+                        <div class="orderlist" >
+                            <div class="orderlist-head">
+                              <h5 style="color: red;" >order#0<%= i+1  %> </h5><span><%=o.createdAt  %> </span>
+                                <h5 style="color: red;"><%= o.orderstatus %>  </h5>
+                            </div>
+                            <div class="orderlist-body ">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="order-track">
+                                            <ul class="order-track-list">
+
+                                                <li class="order-track-item active"><i class="icofont-check"></i><span>order
+                                                        cancelled</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <ul class="orderlist-details">
+                                            <li>
+                                                <h6>order id</h6>
+                                                <h6>#<%=o._id  %></h6>
+                                            </li>
+                                            <li>
+                                                <h6>Total Item</h6>
+                                                  <h6><%= o.products.length  %>Items</h6> 
+                                            </li>
+                                            <li>
+                                                <h6>Order Time -- </h6>&nbsp;
+                                                <h6><%= moment(o.created_at).format('MMMM DD YYYY') %></h6>
+                                            </li>
+                                            <li>
+                                                <h6>Delivery Time</h6>
+                                                <h6><%= moment(o.created_at).format('MMMM DD YYYY') %></h6>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <ul class="orderlist-details">
+                                            <li>
+                                                <h6>Sub Total</h6>
+                                                <h6><%= o.total %>  </h6>
+                                            </li>
+                                            <li>
+                                                <h6>discount</h6>
+                                                <h6></h6>
+                                            </li>
+                                            <li>
+                                                <h6>delivery fee</h6>
+                                                <h6>free(0)</h6>
+                                            </li>
+                                            <li>
+                                                <h6>Total<small>(Incl. VAT)</small></h6>
+                                                <h6></h6>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-4 ">
+                                        <div class="orderlist-deliver">
+                                            <h6>Delivery location</h6>
+                                            <p> 
+                                                <h6><%=o.deliveryAddress[0].streetaddress1%></h6>
+                                                <h6><%=o.deliveryAddress[0].streetaddress2%></h6>
+                                                <h6><%=o.deliveryAddress[0].state%></h6>
+                                                <h6><%=o.deliveryAddress[0].country%></h6>
+                                                <h6><%=o.deliveryAddress[0].zip%></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="table-scroll">
+                                            <table class="table-list">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Serial</th>
+                                                        <th scope="col">Product</th>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Price</th>
+                                                        <th scope="col">brand</th>
+                                                        <th scope="col">quantity</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                   
+                                                   <% o.products.forEach((element,ii) => { %>
+                                                 
+                                                    <tr>
+                                                        <td class="table-serial">
+                                                            <h6>  <%= ii+1 %> </h6>
+                                                        </td>
+                                                        <td class="table-image"><img src="/<%= element.product.imageUrl[0]  %> "
+                                                                alt="product"></td>
+                                                        <td class="table-name">
+                                                            <a href=" ">
+                                                            <h6><%= element.product.title  %>   </h6>
+                                                            </a>
+                                                        </td>
+                                                        <td class="table-price">
+                                                            <h6>$<%= element.product.price %> </h6>
+                                                        </td>
+                                                        <td class="table-brand">
+                                                            <h6><%= element.product.author  %>  </h6>
+                                                        </td>
+                                                        <td class="table-quantity">
+                                                            <h6><%= element.quantity %> </h6>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <% }) %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% } else { %> 
+
+
+                        <div class="orderlist">
+                            <div class="orderlist-head">
+                              <h5>order#0<%= i+1  %> </h5><span><%=o.createdAt  %> </span>
+                                <h5><%=o.orderstatus  %> </h5>
+                            </div>
+                            <div class="orderlist-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="order-track">
+                                            <ul class="order-track-list">
+
+                                                <% if (o.orderstatus === 'received') { %> 
+                                                <li class="order-track-item active"><i class="icofont-check"></i><span>order
+                                                        recieved</span></li>
+                                                <li class="order-track-item"><i class="icofont-close"></i><span>order
+                                                        processed</span></li>
+                                                <li class="order-track-item "><i class="icofont-close"></i><span>order
+                                                        shipped</span></li>
+                                                <li class="order-track-item "><i class="icofont-close"></i><span>order
+                                                             delivered</span></li>
+                                                <li class="order-track-item "><i class="icofont-close"></i><span>order
+                                                                recieved</span></li>
+                                                        
+                                                                <% } else if (o.orderstatus === 'processed') { %>
+                                                 <li class="order-track-item active"><i class="icofont-check"></i><span>order
+                                                                recieved</span></li>
+                                                <li class="order-track-item active"><i class="icofont-check"></i><span>order
+                                                                processed</span></li>
+                                                <li class="order-track-item "><i class="icofont-close"></i><span>order
+                                                                shipped</span></li>
+                                                <li class="order-track-item "><i class="icofont-close"></i><span>order
+                                                                delivered</span></li>
+                                                       
+                                                                <% } else if (o.orderstatus === 'shipped') { %>
+                                                <li class="order-track-item active"><i class="icofont-check"></i><span>order
+                                                                recieved</span></li>
+                                                <li class="order-track-item active"><i class="icofont-check"></i><span>order
+                                                                processed</span></li>
+                                                <li class="order-track-item active"><i class="icofont-check"></i><span>order
+                                                                shipped</span></li>
+                                                <li class="order-track-item "><i class="icofont-close"></i><span>order
+                                                                delivered</span></li>
+                                                      
+                                                                <% } else if ((o.orderstatus === 'delivered')) { %>
+                                                <li class="order-track-item active"><i class="icofont-check"></i><span>order
+                                                                recieved</span></li>
+                                                <li class="order-track-item active"><i class="icofont-check"></i><span>order
+                                                                processed</span></li>
+                                                <li class="order-track-item active"><i class="icofont-check"></i><span>order
+                                                                shipped</span></li>
+                                                <li class="order-track-item active"><i class="icofont-check"></i><span>order
+                                                                delivered</span></li>
+                                                        <% } %> 
+
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <ul class="orderlist-details">
+                                            <li>
+                                                <h6>order id</h6>
+                                                <h6>#<%=o._id  %></h6>
+                                            </li>
+                                            <li>
+                                                <h6>Total Item</h6>
+                                                  <h6><%= o.products.length  %>Items</h6> 
+                                            </li>
+                                            <li>
+                                                <h6>Order Time -- </h6>&nbsp;
+                                                <h6><%= moment(o.created_at).format('MMMM DD YYYY') %></h6>
+                                            </li>
+                                            <li>
+                                                <h6>Delivery Time</h6>
+                                                <h6><%= moment(o.created_at).format('MMMM DD YYYY') %></h6>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <ul class="orderlist-details">
+                                            <li>
+                                                <h6>Sub Total</h6>
+                                                <h6><%= o.total %>  </h6>
+                                            </li>
+                                            <li>
+                                                <h6>discount</h6>
+                                                <h6></h6>
+                                            </li>
+                                            <li>
+                                                <h6>Payment Method</h6>
+                                                <h6><%= o.paymentMethod %> </h6>
+                                            </li>
+                                            <li>
+                                                <h6>Total<small>(Incl. VAT)</small></h6>
+                                                <h6></h6>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-4 ">
+                                        <div class="orderlist-deliver">
+                                            <h4>Delivery location</h4>
+                                            
+                                            <h6><%=o.deliveryAddress[0].streetaddress1%></h6>
+                                            <h6><%=o.deliveryAddress[0].streetaddress2%></h6>
+                                            <h6><%=o.deliveryAddress[0].state%></h6>
+                                            <h6><%=o.deliveryAddress[0].country%></h6>
+                                            <h6><%=o.deliveryAddress[0].zip%>55</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="table-scroll">
+                                            <table class="table-list">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Serial</th>
+                                                        <th scope="col">Product</th>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Price</th>
+                                                        <th scope="col">brand</th>
+                                                        <th scope="col">quantity</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                   
+                                                   <% o.products.forEach((element,ii) => { %>
+                                                 
+                                                    <tr>
+                                                        <td class="table-serial">
+                                                            <h6>  <%= ii+1 %> </h6>
+                                                        </td>
+                                                        <td class="table-image"><img src="/<%= element.product.imageUrl[0]  %> "
+                                                                alt="product"></td>
+                                                        <td class="table-name">
+                                                            <a href=" ">
+                                                            <h6><%= element.product.title  %>   </h6>
+                                                            </a>
+                                                        </td>
+                                                        <td class="table-price">
+                                                            <h6>$<%= element.product.price %> </h6>
+                                                        </td>
+                                                        <td class="table-brand">
+                                                            <h6><%= element.product.author  %>  </h6>
+                                                        </td>
+                                                        <td class="table-quantity">
+                                                            <h6><%= element.quantity %> </h6>
+                                                        </td>
+                                                    </tr>
+                                                     
+                                                    <% }) %>
+                                                </tbody>
+                                            </table>
+                                            <div class="align-center">
+                                                <a class="text-danger"  href="#" onclick="cancel('<%=o._id%>')">Cancel Order</a>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %> 
+                        <% }) %>
+                        <% } %> 
+                        
+                        
+                       
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#"><i class="icofont-arrow-left"></i></a></li>
+                            <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">...</li>
+                            <li class="page-item"><a class="page-link" href="#">65</a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="icofont-arrow-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+      
+        
+        
+    </div>
+</div><!-- End .col-lg-9 -->
+
+<script>
+// FOR FAQS
+jQuery(document).ready(function($){
+    var panels = $(".faq-ans").hide();
+    panels.first().show();
+     $(".faq-que").click(function(){
+         var $this = $(this);
+         panels.slideUp();
+         $this.next().slideDown();
+         
+    });
+
+});
+
+// FOR ORDER LIST
+jQuery(document).ready(function($){
+    var panels = $(".orderlist-body").hide();
+    panels.first().show();
+     $(".orderlist-head").click(function(){
+         var $this = $(this);
+         panels.slideUp();
+         $this.next().slideDown();
+    });
+});
+
+const cancel = (id) => {
+    alert(id)
+    axios.post("/cancel",{id:id}).then((e) => {
+      console.log('vannu');
+    })
+  }
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>

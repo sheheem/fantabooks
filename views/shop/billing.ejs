@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+<!-- molla/checkout.html  22 Nov 2019 09:55:06 GMT -->
+
+<head>
+	<%- include('../includes/header.ejs') %>
+		<!-- Favicon -->
+		<link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href=/images/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href=/images/icons/favicon-16x16.png">
+		<link rel="manifest" href="/images/icons/site.html">
+		<link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#666666">
+		<link rel="shortcut icon" href=/images/icons/favicon.ico">
+		<meta name="apple-mobile-web-app-title" content="Molla">
+		<meta name="application-name" content="Molla">
+		<meta name="msapplication-TileColor" content="#cc9966">
+		<meta name="msapplication-config" content=/images/icons/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+		<!-- Plugins CSS File -->
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		<!-- Main CSS File -->
+		<link rel="stylesheet" href="/css/style1.css">
+</head>
+
+<body>
+	<%- include('../includes/navigation.ejs') %>
+		<div class="page-wrapper">
+
+
+			<main class="main">
+				<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+					<div class="container">
+						<h1 class="page-title">Checkout<span>Shop</span></h1>
+					</div><!-- End .container -->
+				</div><!-- End .page-header -->
+
+
+				<div class="page-content">
+					<div class="checkout">
+						<div class="container">
+							<form action="/billing" method="post">
+							<% if (users.address.length==0) { %>						
+									<div class="row">
+										<div class="col-lg-9">
+											<div id="textbox">
+												<h2 class="checkout-title">Billing Details</h2>
+												<!-- End .checkout-title -->
+												<div class="row">
+													<div class="col-sm-6">
+														<label>First Name *</label>
+														<input type="text" name="firstname" class="form-control">
+													</div><!-- End .col-sm-6 -->
+
+													<div class="col-sm-6">
+														<label>Last Name *</label>
+														<input type="text" name="lastname" class="form-control">
+													</div><!-- End .col-sm-6 -->
+												</div><!-- End .row -->
+
+												<label>Country *</label>
+												<input type="text" name="country" class="form-control">
+
+												<label>Street address *</label>
+												<input type="text" name="streetaddress1" class="form-control"
+													placeholder="House number and Street name">
+												<input type="text" name="streetaddress2" class="form-control"
+													placeholder="Appartments, suite, unit etc ...">
+
+												<div class="row">
+													<div class="col-sm-6">
+														<label>Town / City *</label>
+														<input type="text" name="city" class="form-control">
+													</div><!-- End .col-sm-6 -->
+
+													<div class="col-sm-6">
+														<label>State / County *</label>
+														<input type="text" name="state" class="form-control">
+													</div><!-- End .col-sm-6 -->
+												</div><!-- End .row -->
+
+												<div class="row">
+													<div class="col-sm-6">
+														<label>Postcode / ZIP *</label>
+														<input type="text" name="zip" class="form-control">
+													</div><!-- End .col-sm-6 -->
+
+													<div class="col-sm-6">
+														<label>Phone *</label>
+														<input type="tel" name="phone" class="form-control">
+													</div><!-- End .col-sm-6 -->
+												</div><!-- End .row -->
+
+												<label>Email address *</label>
+												<input type="email" name="email" class="form-control">
+
+												<label>Order notes (optional)</label>
+												<textarea class="form-control" name="ordernotes" cols="30" rows="4"
+													placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+											</div>
+
+										</div><!-- End .col-lg-9 -->
+										<% } else { %>
+											<div class="col-lg-9">
+												<div class="col-lg-9">
+                                                    <input type="checkbox" class="" id="Check" >
+                                                    <% users.address.forEach(a => { %>
+                                                    <div for="html" class="d-flex">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                              <div class="card">
+                                                                <div class="card-body">
+                                                                  <h5 class="card-title">Delivery Address</h5>
+                                                                  <p class="card-text">
+                                                                    <div>
+                                                                        
+                                                                            <%= a.firstname + ' ' +a.lastname %><br>
+                                                                            <%= a.country %><br>
+                                                                                <%= a.streetaddress1 %><br>
+                                                                                    <%= a.streetaddress2 %><br>
+                                                                                        <%= a.city %><br>
+                                                                                            <%= a.state %><br>
+                                                                                                <%= a.zip %><br>
+                                                                                                    <%= a.phone %><br>
+                                                                                                        <%= a.email %><br>
+                                                                        
+                                                                        
+                                                                    </div></p>
+                                                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        
+                                                    </div><% }) %><br>
+                            
+                                                </div><!-- End .col-lg-9 --><br>
+												<div id="textbox">
+													<h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
+													<div class="row">
+														<div class="col-sm-6">
+															<label>First Name *</label>
+															<input type="text" name="firstname" class="form-control">
+														</div><!-- End .col-sm-6 -->						
+														<div class="col-sm-6">
+															<label>Last Name *</label>
+															<input type="text" name="lastname" class="form-control">
+														</div><!-- End .col-sm-6 -->
+													</div><!-- End .row -->						
+													<label>Country *</label>
+													<input type="text" name="country" class="form-control">
+						
+													<label>Street address *</label>
+													<input type="text" name="streetaddress1" class="form-control"
+														placeholder="House number and Street name">
+													<input type="text" name="streetaddress2" class="form-control"
+														placeholder="Appartments, suite, unit etc ...">
+						
+													<div class="row">
+														<div class="col-sm-6">
+															<label>Town / City *</label>
+															<input type="text" name="city" class="form-control">
+														</div><!-- End .col-sm-6 -->
+						
+														<div class="col-sm-6">
+															<label>State / County *</label>
+															<input type="text" name="state" class="form-control">
+														</div><!-- End .col-sm-6 -->
+													</div><!-- End .row -->
+						
+													<div class="row">
+														<div class="col-sm-6">
+															<label>Postcode / ZIP *</label>
+															<input type="text" name="zip" class="form-control">
+														</div><!-- End .col-sm-6 -->
+						
+														<div class="col-sm-6">
+															<label>Phone *</label>
+															<input type="tel" name="phone" class="form-control">
+														</div><!-- End .col-sm-6 -->
+													</div><!-- End .row -->
+						
+													<label>Email address *</label>
+													<input type="email" name="email" class="form-control">
+						
+													<label>Order notes (optional)</label>
+													<textarea class="form-control" name="ordernotes" cols="30" rows="4"
+														placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+												</div>
+						
+											</div><!-- End .col-lg-9 -->
+											<% } %>
+										<aside class="col-lg-3">
+											<div class="summary">
+												<h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
+
+												<table class="table  table-summary">
+													<thead class="tableSum">
+														<tr>
+															<th>Product</th>
+															<th>Total</th>
+														</tr>
+													</thead>
+
+													<tbody>
+														<% products.forEach(p=> { %>
+															<tr>
+																<td><a href="#">
+																		<%= p.productId.title %>
+																	</a></td>
+																<td>
+																	<%= Math.round(p.productId.price*100)/100 %>
+																</td>
+															</tr>
+															<% }) %>
+																<tr class="summary-subtotal">
+																	<td>Subtotal:</td>
+																	<td>
+																		<%= Math.round(totalSum*100)/100 %>
+																	</td>
+																</tr><!-- End .summary-subtotal -->
+																<tr>
+																	<td>Shipping:</td>
+																	<td>Free shipping</td>
+																</tr>
+																<tr class="summary-total">
+																	<td>Total:</td>
+																	<td id="totalSum">
+																		<%= Math.round(totalSum*100)/100 %>
+																	</td>
+																</tr><!-- End .summary-total -->
+													</tbody>
+												</table><!-- End .table table-summary -->									
+									</div><!-- End .accordion -->
+                                    <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block" >
+                                        <span class="btn-hover-text">Proceed to Checkout ></span>
+                                    </button>   
+								</div><!-- End .summary -->
+								
+							</aside><!-- End .col-lg-3 -->
+						</form>	
+						</div><!-- End .row -->
+						</div><!-- End .container -->
+						</div><!-- End .checkout -->
+						</div><!-- End .page-content -->
+						</main><!-- End .main -->
+
+						<footer class="footer">
+
+						</footer><!-- End .footer -->
+						</div><!-- End .page-wrapper -->
+						<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+						<!-- Mobile Menu -->
+						<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+						<div class="mobile-menu-container">
+						<div class="mobile-menu-wrapper">
+							<span class="mobile-menu-close"><i class="icon-close"></i></span>
+
+							<nav class="mobile-nav">
+
+							</nav><!-- End .mobile-nav -->
+						</div><!-- End .mobile-menu-wrapper -->
+						</div><!-- End .mobile-menu-
+
+				<!-- Sign in / Register Modal -->
+
+
+				<!-- Plugins JS File -->
+				<script src="/jss/jquery.min.js"></script>
+				<script src="/jss/bootstrap.bundle.min.js"></script>
+				<script src="/jss/jquery.hoverIntent.min.js"></script>
+				<script src="/jss/jquery.waypoints.min.js"></script>
+				<script src="/jss/superfish.min.js"></script>
+				<script src="/jss/owl.carousel.min.js"></script>
+				<script src="jquery-3.6.1.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+				<!-- <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script> -->
+				<!-- Main JS File -->
+				<script src="/jss/main.js"></script>
+				<script src="/main.js"></script>
+				
+				
+				<script>
+					const textbox = document.getElementById('textbox')
+					function doAlert() {
+						var input = document.querySelector('#Check');
+						input.addEventListener('change', function () {
+							if (input.checked) {
+								textbox.style.display = "none"
+								axios.post('./address',{}).then((e) => {
+									
+								})
+							} else {
+								textbox.style.display = "block"
+								axios.post('/newAddress',{}).then((e) => {
+									console.log(vannu);
+								})
+							}
+						});
+					}
+					doAlert();
+
+				</script>
+</body>
+
+
+
+
+</html>
