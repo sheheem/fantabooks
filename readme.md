@@ -1,0 +1,3 @@
+# Fantabooks 
+
+Built using modern technologies: node.js, express, mongoDB, mongoose, ejs(VC engine), jquery and so on.....
