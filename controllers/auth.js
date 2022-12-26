@@ -145,14 +145,14 @@ exports.postOtp = (req, res, next) => {
             return user
               .save()
               .then((result) => {
-                console.log(result);
+                // console.log(result);
               })
               .catch((err) => {
                 console.log(err);
               });
           })
           .then((result) => {
-            console.log(result);
+            // console.log(result);
             res.redirect("/");
             return transporter.sendMail({
               to: email,
@@ -230,7 +230,7 @@ exports.getNewPassword = (req, res, next) => {
       } else {
         message = null;
       }
-      console.log(user._id);
+      // console.log(user._id);
       res.render("shop/new-password", {
         pageTitle: "Change Password",
         errorMessage: message,
