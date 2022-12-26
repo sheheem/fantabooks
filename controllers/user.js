@@ -236,7 +236,7 @@ exports.postCartDeleteProduct = (req, res, next) => {
 exports.getwishList = (req, res, next) => {
   req.user.populate("wishlist.items.productId").then((user) => {
     const products = user.wishlist.items;
-    console.log(products);
+    // console.log(products);
     res.render("shop/wishlist", {
       pageTitle: "Your Wishlist",
       prods: products,
