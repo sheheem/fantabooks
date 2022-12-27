@@ -18,12 +18,13 @@ const productController = require('./controllers/user')
 const adminController = require('./controllers/admin')
 const getError = require('./controllers/error')
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
-const MONGODB_URI = 'mongodb://localhost:27017'
+const cors = require('cors')
+// const MONGODB_URI = 'mongodb://localhost:27017'
 
 const app = express()
 
 app.use(express.json())
-
+app.use(cors())
 app.use(express.urlencoded({extended:false}))
 
 
@@ -51,10 +52,10 @@ app.use(multer({storage:fileStorage, fileFilter:fileFilter}).array('image',3))
 
 // app.use(morgan('dev'))
 
-const store = new MongoDBStore({
-    uri: MONGODB_URI,
-    collection: 'sessions'
-})
+// const store = new MongoDBStore({
+//     uri: MONGODB_URI,
+//     collection: 'sessions'
+// })
 
 
 app.set('view engine', 'ejs')
@@ -124,7 +125,6 @@ const DB = process.env.DATABASE.replace('<password>',process.env.DATABASE_PASSWO
 
 mongoose.connect(DB, {
   useNewUrlParser:true,
-  
   useUnifiedTopology:true
 }).then(() => {
   console.log('DB connection successful');
