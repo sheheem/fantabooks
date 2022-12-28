@@ -139,6 +139,7 @@ exports.postReview = async (req, res, next) => {
 //Cart Rendering------------------------------------------------
 
 exports.getCart = (req, res, next) => {
+  console.log('At cart1');
   req.user
     .populate("cart.items.productId")
     .then((user) => {
@@ -148,6 +149,7 @@ exports.getCart = (req, res, next) => {
       products.forEach((p) => {
         total += p.quantity * p.productId.price;
       });
+      console.log('At cart2');
 
       res.render("shop/cart", {
         pageTitle: "Your Cart",
@@ -159,6 +161,8 @@ exports.getCart = (req, res, next) => {
       });
     })
     .catch((err) => {
+  console.log('At cart3');
+
       console.log(err);
       const error = new Error(err);
       error.httpStatusCode = 500;
