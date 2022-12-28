@@ -59,12 +59,12 @@
               <div class="row multi-columns-row">
                 <% for (let product of prods) { %>
                   <div class="col-sm-6 col-md-3 col-lg-3">
-                    <% if (product.stock <= 0) {%>
+                    <% if (product.stock <=0) {%>
 
                       <div class="shop-item">
                         <div class="shop-item-image"><img src="/<%= product.imageUrl[0] %>"
                             style="width: 900px; height: 400px;" alt="Accessories Pack" />
-                            <h4 class="shop-item-title font-alt"><a href="/product/<%= product._id %>">
+                          <h4 class="shop-item-title font-alt"><a href="/product/<%= product._id %>">
                               <%= product.title %>
                             </a></h4> OUT OF STOCK
 
@@ -81,13 +81,14 @@
 
                                   <% } %>
 
-                                 
-                                    
+
+
                               </div>
-                              <h4 class="shop-item-title font-alt"><a style="cursor: pointer;" href="/product/<%= product._id %>">
-                                <%= product.title %>
-                              </a></h4>$<%= product.price %>
-                              
+                              <h4 class="shop-item-title font-alt"><a style="cursor: pointer;"
+                                  href="/product/<%= product._id %>">
+                                  <%= product.title %>
+                                </a></h4>$<%= product.price %>
+
                             </div>
                             <% } %>
                         </div>
@@ -95,9 +96,35 @@
                       </div>
                       <div class="row">
                         <div class="col-sm-12">
-                          <div class="pagination font-alt"><a href="#"><i class="fa fa-angle-left"></i></a><a
-                              class="active" href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a
-                              href="#"><i class="fa fa-angle-right"></i></a></div>
+                          <div class="pagination font-alt">
+                            <% if (currentPage !==1 && previousPage !==1) {%>
+                              <a href="/products?page=1">1</a>
+                              <% } %>
+
+                              <% if (hasPreviousPage) { %>
+                                <a href="/products?page=<%= previousPage %>">
+                                  <%= previousPage %>
+                                </a>
+                                <% } %>
+
+                                <a class="active" href="/products?page=<%= currentPage %>">
+                                  <%= currentPage %>
+                                </a>
+
+                                <% if (hasNextPage) { %>
+                                  <a href="/products?page=<%= nextPage %>">
+                                    <%= nextPage %>
+                                  </a>
+                                  <% } %>
+
+                                    <% if (lastPage !== currentPage && nextPage !== lastPage) { %>
+                                      <a href="/products?page=<%= lastPage %>">
+                                        <%= lastPage %>
+                                      </a>
+                                      <% } %>
+
+                                      
+                          </div>
                         </div>
                       </div>
                   </div>
