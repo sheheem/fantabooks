@@ -1,6 +1,7 @@
 const Product = require("../models/product");
 const User = require("../models/user");
 const Order = require("../models/order");
+const Category = require("../models/category")
 const moment = require("moment");
 const wishlist = require("../models/wishlist");
 const Coupon = require("../models/coupon");
@@ -11,6 +12,8 @@ const ITEMS_PER_PAGE = 8;
 
 exports.getHomePage = async (req, res, next) => {
   // console.log(req.get("Cookie"));
+  const category = await Category.find()
+  console.log(category);
   await Product.find().then((product) => {
     // console.log(req.session.user);
     res.locals.product = product;
@@ -18,6 +21,7 @@ exports.getHomePage = async (req, res, next) => {
       pageTitle: "Home",
       user: req.session?.user?.name,
       isAuthenticated: req.session.isLoggedIn,
+      category
     });
   });
 };
