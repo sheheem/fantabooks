@@ -113,13 +113,13 @@ app.use(authRouter)
 // app.use(error)
 
 
-app.use(getError.useError)
-app.use('/500',getError.badError)
+// app.use(getError.useError)
+// app.use('/500',getError.badError)
 
-app.use((error, req, res, next) => {
-    res.status(500).render("500", { pageTitle: "Error 500" });
-    console.log(error);
-  })
+// app.use((error, req, res, next) => {
+//     res.status(500).render("500", { pageTitle: "Error 500" });
+//     console.log(error);
+//   })
 
 
 
