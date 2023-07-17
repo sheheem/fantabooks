@@ -51,13 +51,13 @@ const fileStorage = multer.diskStorage({
 app.use(multer({storage:fileStorage, fileFilter:fileFilter}).array('image',3))
 
 app.use(morgan('dev'))
-const DB = process.env.DATABASE.replace('<password>',process.env.DATABASE_PASSWORD);
+// const DB = process.env.DATABASE.replace('<password>',process.env.DATABASE_PASSWORD);
 
 
-const store = new MongoDBStore({
-    uri: DB,
-    collection: 'sessions'
-})
+// const store = new MongoDBStore({
+//     uri: DB,
+//     collection: 'sessions'
+// })
 
 
 app.set('view engine', 'ejs')
@@ -124,12 +124,12 @@ app.use((error, req, res, next) => {
 
 
 
-mongoose.connect(DB, {
-  useNewUrlParser:true,
-  useUnifiedTopology:true
-}).then(() => {
-  console.log('DB connection successful');
-})
+// mongoose.connect(DB, {
+//   useNewUrlParser:true,
+//   useUnifiedTopology:true
+// }).then(() => {
+//   console.log('DB connection successful');
+// })
 
 
 
