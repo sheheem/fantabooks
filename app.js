@@ -70,7 +70,7 @@ app.use((req, res, next)=>{
 app.use(express.static(path.join(__dirname,'public')))
 app.use( '/images', express.static(path.join(__dirname,'images')))
 
-app.use(session({secret: 'my key', resave:false, saveUninitialized: false, store: store}))
+// app.use(session({secret: 'my key', resave:false, saveUninitialized: false, store: store}))
 
 app.use((req,res,next) => {
   if (!req.session.user) {
